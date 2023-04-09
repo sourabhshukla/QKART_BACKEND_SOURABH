@@ -43,6 +43,11 @@ const userSchema = mongoose.Schema(
  * @returns {Promise<boolean>}
  */
 userSchema.statics.isEmailTaken = async function (email) {
+  const result = await this.find({email: email});
+    if(result.length)
+      return true;
+    else
+      return false;
 };
 
 
@@ -56,3 +61,10 @@ userSchema.statics.isEmailTaken = async function (email) {
 /**
  * @typedef User
  */
+
+ const User = mongoose.model("Users", userSchema);
+ 
+ module.exports = {
+   User
+ }
+ 

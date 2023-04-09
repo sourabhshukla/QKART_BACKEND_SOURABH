@@ -38,7 +38,40 @@ const { userService } = require("../services");
  * @returns {User | {address: String}}
  *
  */
-const getUser = catchAsync(async (req, res) => {
+ const getUser = catchAsync(async (req, res) => {
+
+  const {userId} = req.params;
+  // let userData;
+  // const {q} = req.query;
+  // if(q==='address'){
+  //   userData = await userService.getUserAddressById(userId);
+    
+
+  // }else{
+     userData = await userService.getUserById(userId);
+  // }
+
+  // const token = await tokenService.generateAuthTokens(user);
+  // console.log(token.access.token, "hi/n");
+ // const reqToken = req.headers.authorization.split(" ")[1];
+  // console.log('BREAD');
+  // console.log(reqToken);
+// const decode = jwt.verify(reqToken, config.jwt.secret);
+ //if(decode.sub !== userId){
+ //   throw new ApiError(httpStatus.FORBIDDEN, "User not found");
+// }
+  if(userData){
+   // if(q==='address')
+  //      res.status(200).json({address: userData.address});
+   // else
+       res.status(200).json(userData);
+  }
+  else{
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'User not found'
+    );
+  }
 });
 
 
