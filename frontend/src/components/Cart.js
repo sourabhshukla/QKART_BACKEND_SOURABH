@@ -267,6 +267,7 @@ export default class Cart extends React.Component {
    */
   refreshCart = async () => {
     const cart = await this.getCart();
+    console.log(cart);
     if (cart && cart.cartItems) {
       this.setState({
         items: cart.cartItems.map((item) => ({
@@ -340,6 +341,7 @@ export default class Cart extends React.Component {
    * If cart items do not exist, show appropriate text
    */
   render() {
+    //console.log(this.state.items);
     return (
       <div
         className={["cart", this.props.checkout ? "checkout" : ""].join(" ")}

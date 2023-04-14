@@ -28,6 +28,7 @@ const getProductById = catchAsync(async (req, res) => {
   res.send(product);
 });
 
+
 /**
  * Get list of all products (Not authenticated route)
  *
