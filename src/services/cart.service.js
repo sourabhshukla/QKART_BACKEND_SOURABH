@@ -207,11 +207,11 @@ const deleteProductFromCart = async (user, productId) => {
   }
 
   if (userCart.cartItems.length === 0) {
-    throw new ApiError(httpStatus.BAD_REQUEST);
+    throw new ApiError(httpStatus.BAD_REQUEST,"User does not have items in the cart");
   }
 
-  const isAddressSet = await user.hasSetNonDefaultAddress();
-  if (!isAddressSet) {
+  const hasSetNonDefaultAddress = await user.hasSetNonDefaultAddress();
+  if (!hasSetNonDefaultAddress) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
       "User has no default address set"
@@ -226,8 +226,10 @@ const deleteProductFromCart = async (user, productId) => {
     throw new ApiError(httpStatus.BAD_REQUEST, "Insufficient Balance");
   }
 
-  user.walletMoney -= userCartTotal;
+  user.walletMoney -= userCartTotal; 
+  user=new User(user);
   await user.save();
+  //userCart=new Cart(userCart);
   userCart.cartItems = [];
   await userCart.save();
 

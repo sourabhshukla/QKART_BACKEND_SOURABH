@@ -84,6 +84,7 @@ const getUserAddressById = async (id) => {
    */
   
   const setAddress = async (user, newAddress) => {
+    //user=new User(user);
     user.address = newAddress;
     await user.save();
     
